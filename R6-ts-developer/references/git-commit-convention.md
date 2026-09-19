@@ -49,13 +49,3 @@ chore(tools): 新增 keyword-gate 门禁脚本
 
 - 一次提交只做一件事（按 type/scope 分组，不混提）。
 - 写操作授权门：`git commit` 前确认提交内容与 message 符合本规范；message 生成后执行前显式确认。
-
-## 固化方式
-
-| 层 | 方式 | 状态 |
-|---|---|---|
-| **skill 层** | 本文件被 `R6-ts-developer` 加载时引用 | ✅ 已启用（软约束） |
-| **agent 层** | 开发专用 preset 的 `agent-instructions` 注入 | 📌 TODO：`4projectProgressControl/TODO-stage1-skills.md` T-01（阶段二执行） |
-| ~~插件层~~ | ~~`tools.guard` 硬拦截~~ | ❌ 放弃（PM 决定不开发插件） |
-
-> 详见 `4projectProgressControl/TODO-stage1-skills.md` T-01。
