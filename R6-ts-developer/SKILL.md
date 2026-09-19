@@ -28,7 +28,15 @@ metadata:
    4. 安装副本≠源码（`plugin add` 不刷新 node_modules 副本，最稳新建 profile）
 5. **TS 工程规范**：`import type` 类型导入；相对导入带 `.js`；`verbatimModuleSyntax`；strict + `noUncheckedIndexedAccess`。
 6. **dsh 插件发布（原 R12 并入）**：发布计划供 PM 确认 → 版本 bump → 构建 → `npm pack` → 产物验证 → 渐进发布（金丝雀/灰度+回滚预写）→ 文档 → 实机验证；发布验收清单（main/types/exports 真实文件、files 含资产、peerDependencies、description≤80、幂等）。**写操作授权门**：commit/push/gh 默认只生成命令，执行前显式确认。
-7. **任务拆解/进度总结/todo 控制（强制）**：见 [`references/task-progress.md`](references/task-progress.md)——项目 task 拆解（共用一套）、每 turn 进度小结（时间戳到秒）、todo 按大阶段拆分文件。
+7. **任务拆解/进度总结/todo 控制**：规则见 [`references/task-progress.md`](references/task-progress.md)——项目 task 拆解（共用一套）、每 turn 进度小结（时间戳到秒）、todo 按大阶段拆分文件。**首次任务前读一次即可，勿每 turn 重复读取**（省 token；后续 TODO：py 脚本化，见 TODO-stage1-skills.md T-04）。
+
+## 修改影响面三问（每次针对问题/功能修改必答）
+
+1. **Bug 影响**：此修改影响哪些已有功能/调用方？是否会引入回归？
+2. **安全界限**：是否触碰权限/凭证/命令执行/数据边界？攻击面是否扩大？
+3. **用户输入界限**：新输入边界是什么？非法输入（null/超长/类型错/越界/乱序）如何拒绝？
+
+三问结论写入变更说明（见 evidence-chain）。
 
 ## 隔离测试环境规则（自测/验证时）
 
