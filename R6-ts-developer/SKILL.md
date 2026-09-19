@@ -27,7 +27,10 @@ metadata:
    3. 改源码必重建再验证（main→lib 链路）
    4. 安装副本≠源码（`plugin add` 不刷新 node_modules 副本，最稳新建 profile）
 5. **TS 工程规范**：`import type` 类型导入；相对导入带 `.js`；`verbatimModuleSyntax`；strict + `noUncheckedIndexedAccess`。
-6. **dsh 插件发布（原 R12 并入）**：发布计划供 PM 确认 → 版本 bump → 构建 → `npm pack` → 产物验证 → 渐进发布（金丝雀/灰度+回滚预写）→ 文档 → 实机验证；发布验收清单（main/types/exports 真实文件、files 含资产、peerDependencies、description≤80、幂等）。**写操作授权门**：commit/push/gh 默认只生成命令，执行前显式确认。
+6. **dsh 插件发布（原 R12 并入）**：发布计划供 PM 确认 → 版本 bump → 构建 → `npm pack` → 产物验证 → 渐进发布（金丝雀/灰度+回滚预写）→ 文档 → 实机验证；发布验收清单（main/types/exports 真实文件、files 含资产、peerDependencies、description≤80、幂等）。**写操作授权门（硬性）**：
+   - **不要自动 push**——push 必须用户显式确认后执行。
+   - **git pull / rebase / merge 必须用户亲自确认**——不自动执行，先展示影响（冲突/改动范围）再等用户批准。
+   - commit/gh 默认只生成命令，执行前显式确认。
 7. **commit 后自动化测试（强制）**：代码 commit 之后必须跑自动化测试（单测/集成按 R5 分层方案），全绿才可进入下一任务或发布；测试失败不得宣称任务完成，先修再继续。
 8. **任务拆解/进度总结/todo 控制**：规则见 [`references/task-progress.md`](references/task-progress.md)——项目 task 拆解（共用一套）、每 turn 进度小结（时间戳到秒）、todo 按大阶段拆分文件。**首次任务前读一次即可，勿每 turn 重复读取**（省 token；后续 TODO：py 脚本化，见 TODO-stage1-skills.md T-04）。
 
