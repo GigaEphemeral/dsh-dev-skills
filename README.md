@@ -60,6 +60,41 @@
 
 > 后续语言扩展：新增 `R4-py-architect/`、`R5-py-test-designer/`、`R6-py-developer/` 等，遵循同模板。
 
+## 如何加载到单独的项目空间
+
+DSH 的 skill 从以下根目录发现（源码 `dsh-skill-filesystem/src/index.ts` roots()）：
+
+| 层级 | 路径 | 说明 |
+|---|---|---|
+| 项目级 | `<项目根>/.dsh/skills/` 或 `<项目根>/.agents/skills/` | **推荐**：只在该项目可见 |
+| 用户级 | `$DSH_HOME/skills/` 或 `~/.agents/skills/` | 所有项目可见（谨慎） |
+| 自定义 | `customSkillDirs`（profile 配置） | 显式指定目录 |
+
+### 加载步骤（推荐：项目级）
+
+```bash
+# 在目标项目根创建 skill 目录（二选一，用 .dsh 更规范）
+mkdir -p <项目根>/.dsh/skills
+# 复制需要的 skill（按需，不必全量）
+cp -r R1-brainstormer <项目根>/.dsh/skills/
+# 或软链（保留单一真相源）
+ln -s <本目录>/R1-brainstormer <项目根>/.dsh/skills/
+```
+
+重启/刷新后，项目会话的 skill 目录（catalog）即包含这些 skill。
+
+### ⚠️ 上下文开销（会不会爆炸？——源码确认）
+
+**不会爆炸，但有一定常驻开销，需要知情**：
+
+1. **注入的是目录不是全文**：会话每次请求注入的是 skill **目录（catalog）**——每个 skill 只带 `name + description`（description 默认截断到 **500 字符**，`catalogDescriptionMaxLength` 默认值），外加一行提示"目录只含摘要，调用 `skill` 工具才加载全文"。
+2. **全文按需加载**：SKILL.md + references **只在**模型调用 `skill` 工具（或用户 `/skill名`）时才读入——不是全部常驻。
+3. **固定开销估算**：13 个 skill 全加载 ≈ 每个 ≤500 字符描述 → 最多 ~6.5K 字符 ≈ **2-4K tokens/请求常驻**（每次请求都带，含缓存命中则更低）。
+4. **建议**：
+   - **按需复制**：项目只用某几个 skill 就只复制那几个，不要全量（尤其横切三件套 gates/evidence-chain/token-budget 通常必用，角色 skill 按项目阶段选）。
+   - **角色会话化**：不同 session 用不同项目空间/预设挂不同 skill 组合（开发会话只挂 R6+R5+R4，需求会话只挂 R1-R3），避免全部常驻。
+   - 需要精确数字时跑 `token-ledger.mjs` 实测对比（TODO T-06 已登记验证）。
+
 ## 状态
 
 - [x] 目录骨架 + 本 README
