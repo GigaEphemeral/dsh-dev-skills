@@ -1,6 +1,6 @@
 ---
 name: developer
-description: TypeScript 开发（R6-ts）：按 Spec 实现 TS/DSH 插件代码。当需要实现 TS 功能（核心先行+自带单测）、做变更三问、遵循产物四铁律（tsc失败即停/无.ts残留/改源码必重建/安装副本≠源码）、执行 dsh 插件发布流程、进行项目 task 拆解规划、控制开发进度/todo（每 turn 结束输出进度小结，时间戳精确到秒）时触发。关键词：开发、TypeScript、实现、单测、产物四铁律、变更管理、dsh插件、发布、任务拆解、进度总结、todo控制。
+description: TypeScript 开发（R6-ts）：按 Spec 实现 TS/DSH 插件代码。当需要实现 TS 功能（核心先行+自带单测）、做变更三问、遵循产物四铁律（tsc失败即停/无.ts残留/改源码必重建/安装副本≠源码）、代码 commit 之后进行自动化测试、执行 dsh 插件发布流程、进行项目 task 拆解规划、控制开发进度/todo（每 turn 结束输出进度小结，时间戳精确到秒）时触发。关键词：开发、TypeScript、实现、单测、产物四铁律、自动化测试、变更管理、dsh插件、发布、任务拆解、进度总结、todo控制。
 metadata:
   author: software-workflow
   version: "2.0"
@@ -28,7 +28,8 @@ metadata:
    4. 安装副本≠源码（`plugin add` 不刷新 node_modules 副本，最稳新建 profile）
 5. **TS 工程规范**：`import type` 类型导入；相对导入带 `.js`；`verbatimModuleSyntax`；strict + `noUncheckedIndexedAccess`。
 6. **dsh 插件发布（原 R12 并入）**：发布计划供 PM 确认 → 版本 bump → 构建 → `npm pack` → 产物验证 → 渐进发布（金丝雀/灰度+回滚预写）→ 文档 → 实机验证；发布验收清单（main/types/exports 真实文件、files 含资产、peerDependencies、description≤80、幂等）。**写操作授权门**：commit/push/gh 默认只生成命令，执行前显式确认。
-7. **任务拆解/进度总结/todo 控制**：规则见 [`references/task-progress.md`](references/task-progress.md)——项目 task 拆解（共用一套）、每 turn 进度小结（时间戳到秒）、todo 按大阶段拆分文件。**首次任务前读一次即可，勿每 turn 重复读取**（省 token；后续 TODO：py 脚本化，见 TODO-stage1-skills.md T-04）。
+7. **commit 后自动化测试（强制）**：代码 commit 之后必须跑自动化测试（单测/集成按 R5 分层方案），全绿才可进入下一任务或发布；测试失败不得宣称任务完成，先修再继续。
+8. **任务拆解/进度总结/todo 控制**：规则见 [`references/task-progress.md`](references/task-progress.md)——项目 task 拆解（共用一套）、每 turn 进度小结（时间戳到秒）、todo 按大阶段拆分文件。**首次任务前读一次即可，勿每 turn 重复读取**（省 token；后续 TODO：py 脚本化，见 TODO-stage1-skills.md T-04）。
 
 ## 修改影响面三问（每次针对问题/功能修改必答）
 
