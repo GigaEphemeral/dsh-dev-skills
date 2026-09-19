@@ -48,3 +48,4 @@ metadata:
 
 ## 踩坑经验（references）
 - 遇 DSH 环境/boot/沙箱/隔离搭建问题，先读 [`references/dsh-pitfalls.md`](references/dsh-pitfalls.md)：空 cordis.patch.yml、tsx spawn EPERM、隔离 DSH_HOME 搭建、UTF-8、token 记账。
+- 写 git commit message 前必读 [`references/git-commit-convention.md`](references/git-commit-convention.md)：`<type>(<scope>): <subject>` 格式 + type 清单 + subject ≤50 字符中文无标点。
