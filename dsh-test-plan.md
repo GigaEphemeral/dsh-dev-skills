@@ -46,8 +46,8 @@
 | gates | 给一个阶段产物判能否进入下一阶段 | 门禁报告：结论/证据/未决项 |
 | evidence-chain | 给一段"已完成"描述要求附证据 | 证据四形态之一；未验证项披露 |
 | token-budget | 给会话路径做阶段结算 | 跑 token-ledger；对比预算；记录 |
-| R1-brainstormer | 一句话需求扩展边界 | 追问≥3 轮；建议联网调研；假设标注⚠️ |
-| R2-spec-owner | 收敛发散报告 | Spec 含验收基线+边界输入+DoD |
+| R1-brainstormer | 一句话需求扩展边界 | 追问≥3 轮；建议联网调研；假设标注⚠️；🔧 技术难度项有架构师初判 |
+| R2-spec-owner | 收敛发散报告 | Spec 含验收基线+边界输入+DoD；🔧 项有架构师可行性审核结论 |
 | R3-pm | 两方案选型 | 决策四段记录 |
 | R4-ts-architect | 小 Spec 出 TS 架构 | 架构文档结构齐；核心纯函数化 |
 | R5-ts-test-designer | 出 TS 测试方案 | golden case+分层+边界输入 |
