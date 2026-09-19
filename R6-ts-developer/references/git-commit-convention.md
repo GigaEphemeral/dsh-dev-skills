@@ -49,4 +49,13 @@ chore(tools): 新增 keyword-gate 门禁脚本
 
 - 一次提交只做一件事（按 type/scope 分组，不混提）。
 - 写操作授权门：`git commit` 前确认提交内容与 message 符合本规范；message 生成后执行前显式确认。
-- 系统层约束（如已启用）：commit 时自动校验本规范，不满足即拒绝；其他操作不触发。
+
+## 固化方式（skill 层 + agent 层，非插件）
+
+| 层 | 方式 | 触发 | 约束强度 |
+|---|---|---|---|
+| **skill 层**（当前已启用） | 本文件被 `R6-ts-developer` 加载时引用 | 开发任务使用该 skill | 软约束（prompt 提示，模型遵循） |
+| **agent 层**（阶段二计划） | 开发专用 agent preset（developer persona）的 `agent-instructions` 注入本规范 | 仅选中该 preset 的会话 | 软约束；**非研发任务（其他 preset）不加载，零影响** |
+| ~~插件层~~ | ~~`tools.guard` 硬拦截~~ | ~~每次 git commit~~ | ~~硬约束~~（PM 决定不开发插件，放弃此方案） |
+
+> 说明：agent 层注入只对"开发专用 preset"会话生效，不会增加非研发任务的 token；因不开发插件，约束为软性（模型遵循，无硬拦截）。阶段二建 developer persona 时执行注入。
